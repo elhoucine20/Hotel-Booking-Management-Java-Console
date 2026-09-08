@@ -1,0 +1,56 @@
+package domain;
+
+import enums.RoomStatus;
+import enums.RoomType;
+
+import java.math.BigDecimal;
+
+public class Room {
+    private String roomNumber;
+    private RoomType type;
+    private int capacity;
+    private BigDecimal pricePerNight;
+    private RoomStatus status;
+
+
+    //======================== getter and setter ============================
+    public String getRoomNumber() {
+        return roomNumber;
+    }
+
+    public void setRoomNumber(String roomNumber) {
+        this.roomNumber = roomNumber;
+    }
+
+    public RoomType getType() {
+        return type;
+    }
+
+    public void setType(RoomType type) {
+        this.type = type;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public BigDecimal getPricePerNight() {
+        return pricePerNight;
+    }
+
+    public void setPricePerNight(BigDecimal pricePerNight) {
+        this.pricePerNight = pricePerNight;
+    }
+
+    public RoomStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(RoomStatus status) {
+        this.status = status;
+    }
+}
