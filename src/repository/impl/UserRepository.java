@@ -10,7 +10,10 @@ import java.util.UUID;
 public interface UserRepository {
     public boolean save(User user);
     //User findById(UUID id);
-    User findByEmail(String email);
+    Optional<User> findByEmail(String email);
     boolean existsByEmail(String email);
     List<User> findAll();
+    public boolean checkEmailAndPasswordd(String email, String passord);
+
+    public  void fakeData();
 }

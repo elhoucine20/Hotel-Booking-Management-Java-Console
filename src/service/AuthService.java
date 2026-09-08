@@ -3,25 +3,28 @@ package service;
 import com.sun.tools.javac.Main;
 import domain.User;
 import exception.EmailAlreadyExistsException;
+import exception.InvalidCredentialsException;
 import repository.InMemoryUserRepository;
 import repository.impl.UserRepository;
 import util.Menus;
 import util.ValidationUtils;
 
+import java.util.Optional;
 import java.util.Scanner;
 
 public class AuthService {
 
+    static UserRepository userRepository = new InMemoryUserRepository();
+
     public void registerService(Scanner scanner,String name, String email, String phone, String password)throws Exception{
         try {
-            if (ValidationUtils.ValidateString(name) && ValidationUtils.ValidateEmail(email.toLowerCase()) && ValidationUtils.ValidatePhone(phone) && ValidationUtils.ValidatePassword(password))
+            if (ValidationUtils.ValidateString(name) && ValidationUtils.ValidateEmail(email.toLowerCase())
+                    && ValidationUtils.ValidatePhone(phone) && ValidationUtils.ValidatePassword(password))
             {
                 User user = new User(name,email,phone,password);
-                UserRepository userRepository = new InMemoryUserRepository();
-                userRepository.save(user);
-                Menus.menuApresLogin(scanner);
-            }else{
-                Menus.menuAuth(scanner);
+                if (userRepository.save(user))
+                Menus.menuApresLogin(scanner,user);
+
             }
       }catch (IllegalArgumentException e){
             System.out.println("something is incorrect "+e.getMessage());
@@ -33,18 +36,14 @@ public class AuthService {
 
     }
 
-    public void loginService(String email, String password) throws Exception {
-        UserRepository user = new InMemoryUserRepository();
-        User isUser = user.findByEmail(email);
-        if (isUser != null){
-            if (isUser.getPassword().equals(password)){
+    public User loginService(String email, String password) throws Exception {
+        userRepository.fakeData();
+        User user = null;
+        if (userRepository.checkEmailAndPasswordd(email,password)){
+             user = userRepository.findByEmail(email).get();
                 System.out.println("login avec success ");
-            }
-            else{
-                throw new IllegalArgumentException("sil vous plais saisir votre password !!");
-            }
-        }else {
-            throw new EmailAlreadyExistsException("this email invalid !!!");
+                return user;
         }
+        return user;
     }
 }

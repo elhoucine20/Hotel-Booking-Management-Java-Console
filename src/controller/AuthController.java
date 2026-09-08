@@ -1,6 +1,7 @@
 package controller;
 
 import exception.EmailAlreadyExistsException;
+import exception.InvalidCredentialsException;
 import service.AuthService;
 import util.InputUtils;
 import util.Menus;
@@ -26,7 +27,12 @@ public class AuthController {
     public void loginController(Scanner scanner) throws Exception {
         String email = InputUtils.lireString(scanner,"saisir votre email : ");
         String password = InputUtils.lireString(scanner,"saisir votre mot de pass: ");
-        AuthService authService = new AuthService();
-        authService.loginService(email,password);
+        try{
+            AuthService authService = new AuthService();
+            authService.loginService(email,password);
+        } catch (InvalidCredentialsException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 }

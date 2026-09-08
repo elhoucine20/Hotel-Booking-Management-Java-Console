@@ -1,16 +1,19 @@
 package util;
 
 import controller.AuthController;
+import domain.User;
 
 import java.util.Scanner;
 
 public class Menus {
 
-    public static void menuApresLogin(Scanner scan){
+    static  AuthController  authController = new AuthController();
+
+    public static void menuApresLogin(Scanner scan, User user) throws Exception {
         boolean isTrue = true;
         while (isTrue){
             System.out.println("================================");
-            System.out.println("Logged in as: Alice Dupont");
+            System.out.println("Logged in as: "+user.getFullName());
             System.out.println("================================");
 
             System.out.println("1. Search available rooms");
@@ -34,7 +37,7 @@ public class Menus {
                 case 6: System.out.println("Cancel reservation");break;
                 case 7: System.out.println("Update profile");break;
                 case 8: System.out.println("Change password");break;
-                case 9: System.out.println("Logout"); isTrue = false; break;
+                case 9: System.out.println("Logout"); Menus.menuAuth(scan) ; break;
                 case 0: System.out.println("Exit"); isTrue = false; break;
                 default:
                     System.out.println("s'il vous plais saisir une choix correct!!");break;
@@ -58,9 +61,9 @@ public class Menus {
             choix = scan.nextInt();
 
             switch (choix){
-                case 1: (new AuthController()).registerController(scan);break;
+                case 1: authController.registerController(scan);break;
 
-                case 2: (new AuthController()).loginController(scan);break;
+                case 2: authController.loginController(scan);break;
                 case 0: System.out.println("Bye Bye");break;
                 default:
                     System.out.println("s'il vous plais saisir une choix correct!!");break;
