@@ -1,35 +1,32 @@
 package controller;
 
+import exception.EmailAlreadyExistsException;
 import service.AuthService;
+import util.InputUtils;
+import util.Menus;
 
 import java.util.Scanner;
 
 public class AuthController {
 
-    public void registerController(Scanner scanner){
-       // try {
-            String name="";
-        System.out.println("saisir votre nom : ");
+    public void registerController(Scanner scanner)throws Exception{
+       try {
+           String name = InputUtils.lireString(scanner,"saisir votre nom : ");
+           String email = InputUtils.lireString(scanner,"saisir votre email : ");
+           String phone = InputUtils.lireString(scanner,"saisir votre phone : ");
+           String password = InputUtils.lireString(scanner,"saisir votre password : ");
 
-        while (name.isEmpty()){
-                 name = scanner.nextLine();
-            }
-        System.out.println("saisir votre email : ");
-        String email = scanner.nextLine();
-        System.out.println("saisir votre phone : ");
-        String phone = scanner.nextLine();
-        System.out.println("saisir votre password : ");
-        String password = scanner.nextLine();
         AuthService authService = new AuthService();
-        authService.registerService(name,email,phone,password);
-       // this.loginController();
-
-       // }catch (Exception e){
-     //       System.out.println("something is warning !!");
-     //   }
+        authService.registerService(scanner,name,email,phone,password);
+       }catch (Exception e){
+            System.out.println("something is warning !!"+e.getMessage());
+       }
     }
 
-    public void loginController(){
-        System.out.println("this is login controller ");
+    public void loginController(Scanner scanner) throws Exception {
+        String email = InputUtils.lireString(scanner,"saisir votre email : ");
+        String password = InputUtils.lireString(scanner,"saisir votre mot de pass: ");
+        AuthService authService = new AuthService();
+        authService.loginService(email,password);
     }
 }
