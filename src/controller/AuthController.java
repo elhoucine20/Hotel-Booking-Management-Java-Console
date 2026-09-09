@@ -9,6 +9,7 @@ import util.Menus;
 import java.util.Scanner;
 
 public class AuthController {
+    AuthService authService = new AuthService();
 
     public void registerController(Scanner scanner)throws Exception{
        try {
@@ -17,7 +18,7 @@ public class AuthController {
            String phone = InputUtils.lireString(scanner,"saisir votre phone : ");
            String password = InputUtils.lireString(scanner,"saisir votre password : ");
 
-        AuthService authService = new AuthService();
+
         authService.registerService(scanner,name,email,phone,password);
        }catch (Exception e){
             System.out.println("something is warning !!"+e.getMessage());
@@ -28,7 +29,6 @@ public class AuthController {
         String email = InputUtils.lireString(scanner,"saisir votre email : ");
         String password = InputUtils.lireString(scanner,"saisir votre mot de pass: ");
         try{
-            AuthService authService = new AuthService();
             authService.loginService(email,password);
         } catch (InvalidCredentialsException e) {
             System.out.println(e.getMessage());

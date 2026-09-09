@@ -15,6 +15,7 @@ public class InputUtils {
         }
         return input;
     }
+
     public static String lireString(Scanner scanner , String label){
         String input;
         System.out.print(label+" ");

@@ -1,6 +1,7 @@
 package util;
 
 import controller.AuthController;
+import controller.RoomController;
 import domain.User;
 
 import java.util.Scanner;
@@ -8,6 +9,7 @@ import java.util.Scanner;
 public class Menus {
 
     static  AuthController  authController = new AuthController();
+    static RoomController roomController = new RoomController();
 
     public static void menuApresLogin(Scanner scan, User user) throws Exception {
         boolean isTrue = true;
@@ -29,8 +31,8 @@ public class Menus {
             int choixBeforLogin = scan.nextInt();
 
             switch (choixBeforLogin){
-                case 1: System.out.println("Search available rooms");break;
-                case 2: System.out.println("View all rooms");break;
+                case 1: roomController.serviceAffichierRoomsAvailable(); Menus.menuApresLogin(scan,user); break;
+                case 2: roomController.serviceAffichierRooms(); Menus.menuApresLogin(scan,user); break;
                 case 3: System.out.println("Create reservation");break;
                 case 4: System.out.println("My reservations");break;
                 case 5: System.out.println("Update reservation");break;
@@ -70,7 +72,5 @@ public class Menus {
 
             }
         }while (choix!=0 && choix!=1 && choix!=2);
-
     }
-
 }

@@ -7,11 +7,19 @@ import java.math.BigDecimal;
 
 public class Room {
     private String roomNumber;
-    private RoomType type;
+    private RoomType type; // SINGLE or DOUBLE or SUITE
     private int capacity;
     private BigDecimal pricePerNight;
-    private RoomStatus status;
+    private RoomStatus status;  //AVAILABLE  or MAINTENANCE
 
+
+    public Room(String roomNumber, RoomType type, int capacity, BigDecimal pricePerNight, RoomStatus status) {
+        this.roomNumber = roomNumber;
+        this.type = type;
+        this.capacity = capacity;
+        this.pricePerNight = pricePerNight;
+        this.status = status;
+    }
 
     //======================== getter and setter ============================
     public String getRoomNumber() {
