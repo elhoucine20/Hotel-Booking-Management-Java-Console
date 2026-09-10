@@ -34,7 +34,7 @@ public class ReservationService {
         Room room = roomRepository.getroomByNumber(roomNumber);
         try {
             ValidationUtils.ValidateCodeReservation(reservationCode);  // validate code de reservation
-            if (!roomNumber.isEmpty() && numberOfGuests > 0 && numberOfGuests < 6){    // validation des inputs
+            if (!roomNumber.isEmpty() && numberOfGuests > 0 && numberOfGuests < 6 && !dateDebut.isEmpty() && !dateFin.isEmpty()){    // validation des inputs
                 //System.out.println("hi12");
                 ReservationStatus reservationStatus;
                 UUID id = UUID.randomUUID();
@@ -88,5 +88,13 @@ public class ReservationService {
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
+    }
+
+
+    public void cancelReservationService(String code,User user){
+        boolean cancelled = reservationRepository.cancelReservationRepository(code,user);
+        if (cancelled)
+            System.out.println("reservation cancelled avec succes ");
+        else System.out.println("reservation introuvable !!");
     }
 }

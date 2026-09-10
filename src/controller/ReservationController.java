@@ -6,6 +6,7 @@ import repository.InMemoryRoomRepository;
 import repository.impl.RoomRepository;
 import service.ReservationService;
 import util.InputUtils;
+import util.Menus;
 
 import java.security.spec.ECField;
 import java.time.LocalDate;
@@ -36,4 +37,11 @@ try {
 }
 
     }
+
+    public void cancelReservationController(Scanner scanner,User user) throws Exception {
+        String codeReservation = InputUtils.lireString(scanner,"saisir le code de reservation que tu vous avais annuller ");
+        reservationService.cancelReservationService(codeReservation,user);
+        Menus.menuApresLogin(scanner,user);
+    }
+
 }

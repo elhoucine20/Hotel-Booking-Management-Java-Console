@@ -16,7 +16,7 @@ import java.util.UUID;
 
 public class AuthService {
 
-    static UserRepository userRepository = new InMemoryUserRepository();
+    static InMemoryUserRepository userRepository = new InMemoryUserRepository();
 
     public void registerService(Scanner scanner,String name, String email, String phone, String password)throws Exception{
         //try {
@@ -56,5 +56,16 @@ public class AuthService {
             System.out.println(e.getMessage());
         }
     return user;
+    }
+
+
+    public void changePasswordService(User user,String NPassword){
+        try {
+            ValidationUtils.ValidatePassword(NPassword);
+            if (userRepository.changePasswordRepository(user,NPassword))
+                System.out.println("password changed avec success");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 }

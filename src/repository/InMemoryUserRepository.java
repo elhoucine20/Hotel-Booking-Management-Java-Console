@@ -54,4 +54,15 @@ public class InMemoryUserRepository implements UserRepository {
             throw new IllegalArgumentException("your email incoorect");
         }
     }
+
+
+    public boolean changePasswordRepository(User user,String NPassword){
+        for (User client: persons.values()){
+            if (client.getEmail().equals(user.getEmail())){
+                client.setPassword(NPassword);
+                return true;
+            }
+        }
+        return false;
+    }
 }

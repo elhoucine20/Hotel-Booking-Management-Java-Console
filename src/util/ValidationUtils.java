@@ -38,7 +38,7 @@ public class ValidationUtils {
     }
     public static void ValidatePassword(String pass){
         if (pass.isBlank() || pass.length() < 8){
-            throw new InvalidPassword("s'il vous plais saisir une password correct !!");
+            throw new InvalidPassword("s'il vous plais saisir une password correct (au moins 8 characters)!!");
         }
     }
 

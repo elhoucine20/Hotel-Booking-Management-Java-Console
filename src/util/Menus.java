@@ -44,9 +44,9 @@ public class Menus {
                 case 3: reservationController.createReservationController(scan,user, inMemoryRoomRepository);break;
                 case 4: reservationController.reservationServiceAffichier(user);break;
                 case 5: System.out.println("Update reservation");break;
-                case 6: System.out.println("Cancel reservation");break;
+                case 6: reservationController.cancelReservationController(scan,user);break;
                 case 7: System.out.println("Update profile");break;
-                case 8: System.out.println("Change password");break;
+                case 8: authController.changePasswordController(scan,user);break;
                 case 9: System.out.println("Logout"); Menus.menuAuth(scan) ; break;
                 case 0: System.out.println("Exit"); isTrue = false; break;
                 default:

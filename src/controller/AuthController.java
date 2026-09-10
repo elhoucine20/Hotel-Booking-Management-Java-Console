@@ -42,4 +42,10 @@ public class AuthController {
         }
         return true;
     }
+
+    public void changePasswordController(Scanner scanner,User user){
+        String Npassword = InputUtils.lireString(scanner,"saisir votre nouveau password : ");
+
+        authService.changePasswordService(user,Npassword);
+    }
 }
