@@ -21,7 +21,9 @@ public class Menus {
         boolean isTrue = true;
         while (isTrue){
             System.out.println("================================");
+            //if (user!=null)
             System.out.println("Logged in as: "+user.getFullName());
+            //else  Menus.menuAuth(scan);
             System.out.println("================================");
 
             System.out.println("1. Search available rooms");

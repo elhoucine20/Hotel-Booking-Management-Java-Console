@@ -32,7 +32,7 @@ try {
     reservationService.createReservationService(roomRepository,user,reservationCode,roomNumber,numberOfGuests,dateDebut,dateFin);
 
 }catch (Exception e){
-   // System.out.println(e.getMessage());
+    System.out.println(e.getMessage());
 }
 
     }

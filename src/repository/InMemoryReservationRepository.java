@@ -2,6 +2,7 @@ package repository;
 
 import domain.Reservation;
 import domain.User;
+import enums.ReservationStatus;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,7 +39,8 @@ public class InMemoryReservationRepository {
     }
 
     public Map<UUID,Reservation> getReservationsByRoomNumber(String roomNumber){
-        return reservations.entrySet().stream().filter(res->res.getValue().getRoomNumber().equals(roomNumber)).collect(Collectors.toMap(
+        return reservations.entrySet().stream().filter(res->res.getValue().getRoomNumber().
+                equals(roomNumber) && res.getValue().getStatus().equals(ReservationStatus.CONFIRMED) ).collect(Collectors.toMap(
                 Map.Entry::getKey,
                 Map.Entry::getValue
         ));

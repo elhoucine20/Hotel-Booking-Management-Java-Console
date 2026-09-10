@@ -42,6 +42,16 @@ public class InMemoryUserRepository implements UserRepository {
 
 
     public boolean checkEmailAndPasswordd(String email, String passord){
-        return findByEmail(email).get().getPassword().equals(passord) ;
+        if (findByEmail(email).isPresent()){
+            if (findByEmail(email).get().getPassword().equals(passord)){
+                System.out.println("login avec success ");
+                return true;
+            }
+            else {
+                throw new IllegalArgumentException("your password incoorect");
+            }
+        }else{
+            throw new IllegalArgumentException("your email incoorect");
+        }
     }
 }

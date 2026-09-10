@@ -67,14 +67,13 @@ public class ValidationUtils {
             return LocalDate.parse(date, formatter);
 
         } catch (DateTimeParseException e) {
-            System.out.println(e.getMessage());
-            return null;
+            throw new  DateTimeException("la date '" + date + "' est invalide");
         }
     }
 
     public static boolean ValidateIsAfetrLimit(LocalDate date1){
         if (LocalDate.now().plusMonths(6).isBefore(date1)){
-            throw new DateTimeException("impossible a reserver the room after 4 months !!!");
+            throw new DateTimeException("impossible a reserver the room after 6 months !!!");
         }
         return true;
     }
@@ -85,6 +84,14 @@ public class ValidationUtils {
             if (days>30)
                 throw new DateTimeException("impossible de reserver une chambre plus que 30 jour !!");
             return days;
+    }
+
+
+    public static boolean CheckPossiiliteDeReserver(LocalDate checkIn,LocalDate checkOut,LocalDate reservedIn,LocalDate reservetOut){
+        if (checkIn.isBefore(reservetOut) && checkOut.isAfter(reservedIn))
+            throw new DateTimeException("deja room reserved dans ce date '"+checkIn+"' '"+checkOut+"'");
+
+        else return true;
     }
 
 }

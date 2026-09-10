@@ -45,11 +45,16 @@ public class AuthService {
     public User loginService(String email, String password) throws Exception {
         userRepository.fakeData();
         User user = null;
-        if (userRepository.checkEmailAndPasswordd(email,password)){
-             user = userRepository.findByEmail(email).get();
-                System.out.println("login avec success ");
-            return user;
+        try {
+            if (userRepository.checkEmailAndPasswordd(email,password))
+            {
+                user = userRepository.findByEmail(email).get();
+                return user;
+           }
+
+        }catch (Exception e){
+            System.out.println(e.getMessage());
         }
-        return user;
+    return user;
     }
 }

@@ -32,11 +32,14 @@ public class AuthController {
             String email = InputUtils.lireString(scanner,"saisir votre email : ");
             String password = InputUtils.lireString(scanner,"saisir votre mot de pass: ");
             User user = authService.loginService(email,password);
+
+            if (user == null) return null;
             Menus.menuApresLogin(scanner,user);
         } catch (InvalidCredentialsException e) {
             System.out.println(e.getMessage());
+        }catch (Exception e){
+            System.out.println(e.getMessage());
         }
         return true;
-
     }
 }
