@@ -7,12 +7,13 @@ import enums.RoomType;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 public class InMemoryRoomRepository {
 
     //HashMap<String, Room>
-    Map<UUID, Room> rooms = new HashMap<>();
+    static Map<UUID, Room> rooms = new HashMap<>();
 
     {
         rooms.put(UUID.randomUUID(),
@@ -85,6 +86,16 @@ public class InMemoryRoomRepository {
                 )
         );
 
+        rooms.put(UUID.randomUUID(),
+                new Room(
+                        "301",
+                        RoomType.SUITE,
+                        4,
+                        new BigDecimal("1200.00"),
+                        RoomStatus.AVAILABLE
+                )
+        );
+
     }
 
     public void afichierRooms(){
@@ -111,5 +122,13 @@ public class InMemoryRoomRepository {
             }
         }
         System.out.print("\n");
+    }
+
+    public  Room getroomByNumber(String NRoom){
+          Room room = rooms.entrySet().stream().filter(ro->ro.getValue().getRoomNumber().equals(NRoom))
+                .map(Map.Entry::getValue).findFirst().orElseThrow();
+          if (room == null)
+              throw new IllegalArgumentException("room introvable");
+          return room;
     }
 }

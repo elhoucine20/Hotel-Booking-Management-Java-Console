@@ -1,5 +1,6 @@
 package controller;
 
+import repository.InMemoryRoomRepository;
 import service.RoomService;
 
 public class RoomController {
@@ -7,11 +8,11 @@ public class RoomController {
     RoomService roomService = new RoomService();
 
 
-    public void serviceAffichierRooms(){
-        roomService.repositoryAffichierRooms();
+    public void serviceAffichierRooms(InMemoryRoomRepository roomRepo){
+        roomService.repositoryAffichierRooms(roomRepo);
     }
-    public void serviceAffichierRoomsAvailable(){
-        roomService.setRoomsAvailableRepository();
+    public void serviceAffichierRoomsAvailable(InMemoryRoomRepository roomRepo){
+        roomService.setRoomsAvailableRepository(roomRepo);
     }
 
 }

@@ -4,13 +4,12 @@ import repository.InMemoryRoomRepository;
 
 public class RoomService {
 
-    InMemoryRoomRepository roomRepository = new InMemoryRoomRepository();
 
-    public void repositoryAffichierRooms(){
+    public void repositoryAffichierRooms(InMemoryRoomRepository roomRepository){
         roomRepository.afichierRooms();
     }
 
-    public void setRoomsAvailableRepository(){
+    public void setRoomsAvailableRepository(InMemoryRoomRepository roomRepository){
         roomRepository.afichierRoomsAvailable();
     }
 }

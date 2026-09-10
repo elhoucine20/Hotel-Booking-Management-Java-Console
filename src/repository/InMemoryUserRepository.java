@@ -14,20 +14,13 @@ public class InMemoryUserRepository implements UserRepository {
 
 
     public  void fakeData(){
-        User user = new User("ana","ana@gmail.com","00000000","0601667201");
         UUID id = UUID.randomUUID();
+        User user = new User("ana","ana@gmail.com","00000000",id ,"0601667201");
        persons.put(id,user);
-
-     //  for (Map.Entry<UUID,User> entry : persons.entrySet()){
-       //    System.out.println(entry.getValue().getPassword()+" "+entry.getValue().getEmail());
-       //}
     }
 
-    public boolean save(User user){
-
-            UUID id = UUID.randomUUID();
+    public boolean save(UUID id , User user){
             persons.put(id,user);
-           // persons.entrySet().stream().forEach(u-> System.out.println(u.getValue().getFullName()));
             return true;
     }
 

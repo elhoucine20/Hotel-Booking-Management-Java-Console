@@ -5,11 +5,12 @@ import enums.ReservationStatus;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class Reservation {
-    private int id;
+    private UUID id;
     private String reservationCode;
-    private int userId;
+    private UUID userId;
     private  String roomNumber;
     private LocalDate checkIn;
     private LocalDate checkOut;
@@ -19,11 +20,30 @@ public class Reservation {
     private ReservationStatus status;
     private LocalDateTime createdAt;
 
+
+    //======================== Constructer ===========================
+
+
+    public Reservation(UUID id, String reservationCode, UUID userId, String roomNumber, LocalDate checkIn, LocalDate checkOut,
+                       int numberOfGuests, long numberOfNights, BigDecimal totalPrice, ReservationStatus status, LocalDateTime createdAt) {
+        this.id = id;
+        this.reservationCode = reservationCode;
+        this.userId = userId;
+        this.roomNumber = roomNumber;
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
+        this.numberOfGuests = numberOfGuests;
+        this.numberOfNights = numberOfNights;
+        this.totalPrice = totalPrice;
+        this.status = status;
+        this.createdAt = createdAt;
+    }
+
     //======================== getter and setter ===========================
-    public int getId() {
+    public UUID getId() {
         return id;
     }
-    public void setId(int id) {
+    public void setId(UUID id) {
         this.id = id;
     }
     public String getReservationCode() {
@@ -32,10 +52,10 @@ public class Reservation {
     public void setReservationCode(String reservationCode) {
         this.reservationCode = reservationCode;
     }
-    public int getUserId() {
+    public UUID getUserId() {
         return userId;
     }
-    public void setUserId(int userId) {
+    public void setUserId(UUID userId) {
         this.userId = userId;
     }
     public String getRoomNumber() {

@@ -1,5 +1,7 @@
 package util;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class InputUtils {
@@ -24,5 +26,30 @@ public class InputUtils {
         }while (input.isEmpty());
         return input;
     }
+
+    public static int lireInt(Scanner scanner , String label){
+        int input=0;
+        try {
+            System.out.print(label+" ");
+            input = scanner.nextInt();
+        }catch (NumberFormatException e){
+            // System.out.println("s'il vous plais saisir votre choix ");
+            InputUtils.lireInt(scanner,label);
+        }
+        return input;
+    }
+
+    public static long lireLong(Scanner scanner , String label){
+        long input = 0;
+        try {
+            System.out.print(label+" ");
+            input = scanner.nextLong();
+        }catch (NumberFormatException e){
+            // System.out.println("s'il vous plais saisir votre choix ");
+            InputUtils.lireLong(scanner,label);
+        }
+        return input;
+    }
+
 
 }

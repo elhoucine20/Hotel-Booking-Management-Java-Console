@@ -5,16 +5,13 @@ import java.util.UUID;
 public class User extends Personne {
 
     private String phone;
-    //private UUID id;
+    private UUID id;
 
 
-    public User(String fullName, String email, String password, String phone) {
+    public User(String fullName, String email, String password,UUID id, String phone) {
         super(fullName, email, password);
         setPhone(phone);
-    }
-
-    public User(String email, String password) {
-        super(email, password);
+        setId(id);
     }
 
     // ===================== getters and setters ============================
@@ -26,6 +23,14 @@ public class User extends Personne {
         this.phone = phone;
     }
 
+    @Override
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
     @Override
     public void affichier() {

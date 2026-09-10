@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface UserRepository {
-    public boolean save(User user);
+    public boolean save(UUID id,User user);
     //User findById(UUID id);
     Optional<User> findByEmail(String email);
     boolean existsByEmail(String email);
