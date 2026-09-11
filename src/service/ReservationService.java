@@ -20,9 +20,11 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
+
 public class ReservationService {
 
     InMemoryReservationRepository reservationRepository = new InMemoryReservationRepository();
+    InMemoryRoomRepository romRepository;
 
     public void myReservationsService(User user){
         reservationRepository.affichierReservationsUser(user);
@@ -30,6 +32,7 @@ public class ReservationService {
 
     public void createReservationService(InMemoryRoomRepository roomRepository,User user, String reservationCode, String roomNumber, int numberOfGuests, String dateDebut
     , String dateFin){
+        romRepository = roomRepository;
         List<Reservation> reservations = new ArrayList<>();   // list de reservations filtrer par status confirmed  et auusi by room number
         Room room = roomRepository.getroomByNumber(roomNumber);
         try {
@@ -77,6 +80,7 @@ public class ReservationService {
                                 numberOfGuests,numberOfNighits,totalPrice,reservationStatus,createdAt);          // nes Reservation
                         // System.out.println("hi");
                         reservationRepository.saveReservationRepository(id,reservation);   // save in RepositoryReservation
+                        room.setStatus(RoomStatus.MAINTENANCE);
                         //System.out.println("hi4");
                     } else {
                         System.out.println("vous avais saisir une chambre indisponible !!");
@@ -90,11 +94,34 @@ public class ReservationService {
         }
     }
 
-
     public void cancelReservationService(String code,User user){
         boolean cancelled = reservationRepository.cancelReservationRepository(code,user);
         if (cancelled)
             System.out.println("reservation cancelled avec succes ");
         else System.out.println("reservation introuvable !!");
     }
+
+
+    public void updateReservationService(String code,String roomNumber, int numberOfGuests){
+        Reservation reservation = reservationRepository.getReservationsByCode(code);
+        if (ValidationUtils.ValidateCodeReservation(code) ){
+            if (numberOfGuests<=0 || numberOfGuests >= 6)throw new IllegalArgumentException("numberOfGuests is impossible try again !!");
+
+            if (reservation.getRoomNumber().equals(roomNumber) && reservation.getNumberOfNights() == numberOfGuests){
+                throw new IllegalArgumentException("votre donnees deja exist !!");
+            }else{
+                BigDecimal totalPix ;
+                Room room = romRepository.getroomByNumber(roomNumber);
+                if (room.getCapacity() < numberOfGuests ) throw new IllegalArgumentException("impossible de change to this room !!");
+                LocalDate checkOut = reservation.getCheckOut();
+                LocalDate checkIn = reservation.getCheckIn();
+                long days = ChronoUnit.DAYS.between(checkIn,checkOut);
+                totalPix = room.getPricePerNight().multiply(BigDecimal.valueOf(days));
+                room.setStatus(RoomStatus.MAINTENANCE);
+                reservationRepository.updateReservationRepository(code,roomNumber,numberOfGuests,totalPix);
+            }
+        }
+
+    }
+
 }

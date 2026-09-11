@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 public class ReservationController {
     ReservationService reservationService = new ReservationService();
-
+    InMemoryRoomRepository romRepository;
 
     public void reservationServiceAffichier(User user){
         reservationService.myReservationsService(user);
@@ -23,6 +23,7 @@ public class ReservationController {
 
     public void createReservationController(Scanner scanner , User user, InMemoryRoomRepository roomRepository){
 
+        romRepository = roomRepository;
 try {
     String reservationCode  = InputUtils.lireString(scanner,"Saisir code de Reservation :");
     String roomNumber  = InputUtils.lireString(scanner,"Saisir Room Number :");
@@ -42,6 +43,18 @@ try {
         String codeReservation = InputUtils.lireString(scanner,"saisir le code de reservation que tu vous avais annuller ");
         reservationService.cancelReservationService(codeReservation,user);
         Menus.menuApresLogin(scanner,user);
+    }
+
+
+    public void updateReservationController(Scanner scanner,User user){
+        String code = InputUtils.lireString(scanner,"saisir code de reservation : ");
+        String roomNumber = InputUtils.lireString(scanner,"saisir roomNumber : ");
+        int numberOfQuests = InputUtils.lireInt(scanner,"saisir number of guests : ");
+        try {
+            reservationService.updateReservationService(code,roomNumber,numberOfQuests);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
 }

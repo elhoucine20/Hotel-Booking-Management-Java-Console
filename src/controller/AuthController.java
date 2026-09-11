@@ -48,4 +48,13 @@ public class AuthController {
 
         authService.changePasswordService(user,Npassword);
     }
+
+
+    public void verifierProfileController(Scanner scanner,User user){
+        String Name = InputUtils.lireString(scanner,"vrifier votre nom : ");
+        String email = InputUtils.lireString(scanner,"verifier votre email : ");
+        String phone = InputUtils.lireString(scanner,"verifier votre phone : ");
+        authService.verifierProfileService(user,Name,email,phone);
+
+    }
 }

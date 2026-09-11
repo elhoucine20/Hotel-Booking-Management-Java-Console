@@ -68,4 +68,18 @@ public class AuthService {
             System.out.println(e.getMessage());
         }
     }
+
+    public void verifierProfileService(User user, String name,String email,String phone){
+
+        try {
+            ValidationUtils.ValidateEmail(email);
+            ValidationUtils.ValidatePhone(phone);
+            if (ValidationUtils.ValidateString(name)){
+                userRepository.verifierProfileRepository(user,name,email,phone);
+                System.out.println("votre profile est verifier avec succes ");
+
+            }}catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 }

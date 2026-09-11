@@ -48,7 +48,7 @@ public class InMemoryRoomRepository {
 
         rooms.put(UUID.randomUUID(),
                 new Room(
-                        "201",
+                        "104",
                         RoomType.SINGLE,
                         1,
                         new BigDecimal("400.00"),
@@ -58,7 +58,7 @@ public class InMemoryRoomRepository {
 
         rooms.put(UUID.randomUUID(),
                 new Room(
-                        "202",
+                        "105",
                         RoomType.DOUBLE,
                         2,
                         new BigDecimal("650.00"),
@@ -68,7 +68,7 @@ public class InMemoryRoomRepository {
 
         rooms.put(UUID.randomUUID(),
                 new Room(
-                        "203",
+                        "106",
                         RoomType.SUITE,
                         5,
                         new BigDecimal("1500.00"),
@@ -78,7 +78,7 @@ public class InMemoryRoomRepository {
 
         rooms.put(UUID.randomUUID(),
                 new Room(
-                        "301",
+                        "107",
                         RoomType.DOUBLE,
                         2,
                         new BigDecimal("700.00"),
@@ -88,7 +88,7 @@ public class InMemoryRoomRepository {
 
         rooms.put(UUID.randomUUID(),
                 new Room(
-                        "301",
+                        "108",
                         RoomType.SUITE,
                         4,
                         new BigDecimal("1200.00"),

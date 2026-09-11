@@ -4,6 +4,7 @@ import domain.Reservation;
 import domain.User;
 import enums.ReservationStatus;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -50,7 +51,6 @@ public class InMemoryReservationRepository {
         ));
     }
 
-
     public boolean cancelReservationRepository(String codeReservation,User user){
         for (Map.Entry<UUID,Reservation> res: reservations.entrySet()){
             if (res.getValue().getReservationCode().equals(codeReservation) && res.getValue().getUserId().equals(user.getId())){
@@ -60,4 +60,24 @@ public class InMemoryReservationRepository {
         }
         return false;
     }
+
+    public boolean updateReservationRepository(String code,String roomNumber, int numberOfGuests, BigDecimal totalPrice){
+        for (Map.Entry<UUID,Reservation> res:reservations.entrySet()){
+            Reservation reservation = res.getValue();
+            if (reservation.getReservationCode().equals(code)){
+                reservation.setRoomNumber(roomNumber);
+                reservation.setNumberOfGuests(numberOfGuests);
+                reservation.setTotalPrice(totalPrice);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Reservation getReservationsByCode(String code){
+        Reservation ress = reservations.values().stream().filter(res->res.getReservationCode().
+                equals(code) && res.getStatus().equals(ReservationStatus.CONFIRMED) ).findFirst().get();
+        return ress;
+    }
+
 }

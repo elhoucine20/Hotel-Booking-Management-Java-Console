@@ -65,4 +65,15 @@ public class InMemoryUserRepository implements UserRepository {
         }
         return false;
     }
+
+    public void verifierProfileRepository(User user,String name,String email,String phone){
+        for (User userr : persons.values()){
+            if (userr.getId().equals(user.getId())){
+                userr.setFullName(name);
+                userr.setEmail(email);
+                userr.setPhone(phone);
+                return;
+            }
+        }
+    }
 }
