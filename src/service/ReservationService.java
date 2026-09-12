@@ -80,7 +80,7 @@ public class ReservationService {
                                 numberOfGuests,numberOfNighits,totalPrice,reservationStatus,createdAt);          // nes Reservation
                         // System.out.println("hi");
                         reservationRepository.saveReservationRepository(id,reservation);   // save in RepositoryReservation
-                        room.setStatus(RoomStatus.MAINTENANCE);
+                        //room.setStatus(RoomStatus.MAINTENANCE);
                         //System.out.println("hi4");
                     } else {
                         System.out.println("vous avais saisir une chambre indisponible !!");
@@ -101,7 +101,6 @@ public class ReservationService {
         else System.out.println("reservation introuvable !!");
     }
 
-
     public void updateReservationService(String code,String roomNumber, int numberOfGuests){
         Reservation reservation = reservationRepository.getReservationsByCode(code);
         if (ValidationUtils.ValidateCodeReservation(code) ){
@@ -117,11 +116,25 @@ public class ReservationService {
                 LocalDate checkIn = reservation.getCheckIn();
                 long days = ChronoUnit.DAYS.between(checkIn,checkOut);
                 totalPix = room.getPricePerNight().multiply(BigDecimal.valueOf(days));
-                room.setStatus(RoomStatus.MAINTENANCE);
+                //room.setStatus(RoomStatus.MAINTENANCE);
                 reservationRepository.updateReservationRepository(code,roomNumber,numberOfGuests,totalPix);
             }
         }
 
+    }
+
+
+    public void updateReservationRoomStatus() {
+
+        for (Reservation reservation : reservationRepository.getReservations().values()){
+            if (reservation.getStatus().equals(ReservationStatus.CONFIRMED)){
+                if (reservation.getCheckOut().isBefore(LocalDate.now())) {
+                    reservation.setStatus(ReservationStatus.COMPLETED);
+                    Room room = romRepository.getroomByNumber(reservation.getRoomNumber());
+                    room.setStatus(RoomStatus.AVAILABLE);
+                }
+            }
+        }
     }
 
 }

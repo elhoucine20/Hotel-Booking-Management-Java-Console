@@ -5,14 +5,15 @@ import service.RoomService;
 
 public class RoomController {
 
-    RoomService roomService = new RoomService();
+    //RoomService roomService ;
 
 
-    public void serviceAffichierRooms(InMemoryRoomRepository roomRepo){
-        roomService.repositoryAffichierRooms(roomRepo);
+    public void serviceAffichierRooms(InMemoryRoomRepository roomRepo,RoomService romService){
+
+        romService.repositoryAffichierRooms(roomRepo);
     }
-    public void serviceAffichierRoomsAvailable(InMemoryRoomRepository roomRepo){
-        roomService.setRoomsAvailableRepository(roomRepo);
+    public void serviceAffichierRoomsAvailable(InMemoryRoomRepository roomRepo,RoomService romService){
+        romService.setRoomsAvailableRepository(roomRepo);
     }
 
 }

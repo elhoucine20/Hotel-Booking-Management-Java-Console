@@ -131,4 +131,8 @@ public class InMemoryRoomRepository {
               throw new IllegalArgumentException("room introvable");
           return room;
     }
+
+    public static Map<UUID,Room> getRooms(){
+        return rooms;
+    }
 }

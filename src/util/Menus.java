@@ -6,8 +6,13 @@ import controller.RoomController;
 import domain.User;
 import repository.InMemoryRoomRepository;
 import repository.impl.RoomRepository;
+import service.ReservationService;
+import service.RoomService;
 
 import java.util.Scanner;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class Menus {
 
@@ -15,6 +20,8 @@ public class Menus {
     static RoomController roomController = new RoomController();
     static ReservationController reservationController = new ReservationController();
     static  InMemoryRoomRepository inMemoryRoomRepository = new InMemoryRoomRepository();
+    static RoomService roomService = new RoomService();
+    static ReservationService reservationService = new ReservationService();
 
 
     public static void menuApresLogin(Scanner scan, User user) throws Exception {
@@ -39,12 +46,12 @@ public class Menus {
             int choixBeforLogin = scan.nextInt();
 
             switch (choixBeforLogin){
-                case 1: roomController.serviceAffichierRoomsAvailable( inMemoryRoomRepository); Menus.menuApresLogin(scan,user); break;
-                case 2: roomController.serviceAffichierRooms( inMemoryRoomRepository); Menus.menuApresLogin(scan,user); break;
-                case 3: reservationController.createReservationController(scan,user, inMemoryRoomRepository);break;
-                case 4: reservationController.reservationServiceAffichier(user);break;
-                case 5: reservationController.updateReservationController(scan,user);break;
-                case 6: reservationController.cancelReservationController(scan,user);break;
+                case 1: roomController.serviceAffichierRoomsAvailable( inMemoryRoomRepository,roomService); Menus.menuApresLogin(scan,user); break;
+                case 2: roomController.serviceAffichierRooms( inMemoryRoomRepository,roomService); Menus.menuApresLogin(scan,user); break;
+                case 3: reservationController.createReservationController(scan,user, inMemoryRoomRepository,reservationService);break;
+                case 4: reservationController.reservationServiceAffichier(user,reservationService);break;
+                case 5: reservationController.updateReservationController(scan,reservationService);break;
+                case 6: reservationController.cancelReservationController(scan,user,reservationService);break;
                 case 7: authController.verifierProfileController(scan,user);break;
                 case 8: authController.changePasswordController(scan,user);break;
                 case 9: System.out.println("Logout"); Menus.menuAuth(scan) ; break;
@@ -56,7 +63,6 @@ public class Menus {
 
         }
     }
-
 
     public static void menuAuth(Scanner scan) throws Exception {
         int choix;
@@ -80,5 +86,19 @@ public class Menus {
 
             }
         }while (isTrue);
+    }
+
+
+    public static void updateStatuRoomReservationDynamique(){
+        // Background scheduler to process expired reservations automatically
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+        scheduler.scheduleAtFixedRate(() -> {
+            try {
+                   reservationService.updateReservationRoomStatus();
+            } catch (Exception e) {
+
+            }
+        }, 0, 1, TimeUnit.SECONDS);
+
     }
 }

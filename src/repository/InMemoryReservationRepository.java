@@ -1,10 +1,12 @@
 package repository;
 
 import domain.Reservation;
+import domain.Room;
 import domain.User;
 import enums.ReservationStatus;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -78,6 +80,11 @@ public class InMemoryReservationRepository {
         Reservation ress = reservations.values().stream().filter(res->res.getReservationCode().
                 equals(code) && res.getStatus().equals(ReservationStatus.CONFIRMED) ).findFirst().get();
         return ress;
+    }
+
+
+    public  Map<UUID,Reservation> getReservations(){
+        return reservations;
     }
 
 }

@@ -11,5 +11,6 @@ void main() throws Exception {
 * */
     Scanner scan = new Scanner(System.in);
 
+    Menus.updateStatuRoomReservationDynamique();
     Menus.menuAuth(scan);
 }

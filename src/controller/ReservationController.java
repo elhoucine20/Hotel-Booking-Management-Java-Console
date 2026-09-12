@@ -14,14 +14,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class ReservationController {
-    ReservationService reservationService = new ReservationService();
+
     InMemoryRoomRepository romRepository;
 
-    public void reservationServiceAffichier(User user){
+    public void reservationServiceAffichier(User user,ReservationService reservationService){
         reservationService.myReservationsService(user);
     }
 
-    public void createReservationController(Scanner scanner , User user, InMemoryRoomRepository roomRepository){
+    public void createReservationController(Scanner scanner , User user, InMemoryRoomRepository roomRepository,ReservationService reservationService){
 
         romRepository = roomRepository;
 try {
@@ -39,14 +39,14 @@ try {
 
     }
 
-    public void cancelReservationController(Scanner scanner,User user) throws Exception {
+    public void cancelReservationController(Scanner scanner,User user,ReservationService reservationService) throws Exception {
         String codeReservation = InputUtils.lireString(scanner,"saisir le code de reservation que tu vous avais annuller ");
         reservationService.cancelReservationService(codeReservation,user);
         Menus.menuApresLogin(scanner,user);
     }
 
 
-    public void updateReservationController(Scanner scanner,User user){
+    public void updateReservationController(Scanner scanner,ReservationService reservationService){
         String code = InputUtils.lireString(scanner,"saisir code de reservation : ");
         String roomNumber = InputUtils.lireString(scanner,"saisir roomNumber : ");
         int numberOfQuests = InputUtils.lireInt(scanner,"saisir number of guests : ");
